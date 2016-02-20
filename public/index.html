@@ -1,0 +1,56 @@
+<html>
+<head>
+    <title>Chat Example</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script>
+        
+        //connect
+        var socketio = io.connect();
+         
+        //respond to sendMessage event by appending the received message to the textarea's end, with new line  
+        socketio.on('sendMessage', function (data) {
+            var msg = data.nick + ': ' + data.message;
+            $('textarea').val($('textarea').val() + msg + '\n');
+        });
+
+        //Do the work
+        $(function() {
+            
+            //Emit setNickName event with the value of nickNameInput input field, when clicked on nickNameButton
+            $('#nickNameButton').on('click', function() {
+                socketio.emit('setNickName', $('#nickNameInput').val());
+            });
+
+            //Emit sendMessage event with the value of messageInput input field, when clicked on sendMessageButton
+            $('#sendMessageButton').on('click', function() {
+                socketio.emit('sendMessage', {
+                    message:$('#messageInput').val()
+                });
+            });
+            
+
+        });
+    </script>
+</head>
+<body>
+    
+    <h1>Ngrok Chat Demo</h1>
+    
+    <!--NickName with a button-->
+    <p>
+        <input id="nickNameInput" type="text" placeholder="ngrock User"/>
+        <button id="nickNameButton">Set/Change Your Nickname</button>
+    </p>
+    
+     <!--Chat textarea-->
+    <textarea style="height:400px;width:400px;"></textarea>
+    
+    <!--Message text with a button-->
+    <p>
+        <input id="messageInput" type="text"/>
+        <button id="sendMessageButton">Send Message</button>
+    </p>
+    
+</body>
+</html>
