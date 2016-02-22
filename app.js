@@ -2,7 +2,8 @@ var express = require('express');
 var http = require('http'); 
 var path = require('path');
 var serverSocket = require('socket.io');
-var logger = require('morgan');
+//debug
+var debug = require('debug');
 
 var app = express();
 
@@ -14,14 +15,13 @@ app.set('port', port);
 app.use(express.static(path.join(__dirname, 'public')));
 
 //configure logger for development
-app.use(logger('dev'));
 
 //setup express server
-var server = http.createServer(app).listen(app.get('port'), function(){
-    console.log("Server listening on port " + app.get('port'));
+var server = http.createServer(app).listen(app.get('port'), function() {
+    console.log("socket.io Server listening on port " + port);
 });
 
-//start socket.io
+//make Server object (socket.io)
 var io = serverSocket.listen(server);
 
 //handle traffic
@@ -53,3 +53,12 @@ io.sockets.on('connection', function (socket) {
     });
 
 });
+
+//Install ngrok
+
+//my domain is mmj.ngrok.io
+//start ngrock with subdomain
+//ngrok http -subdomain=mmj 3000
+
+//inspector: 
+//http://localhost:4040

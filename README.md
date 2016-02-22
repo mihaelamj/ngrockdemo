@@ -27,7 +27,7 @@ Install it globally, may have to sudo that.
 1. npm init to create package.json
 2. install express with npm --save install express
 3. install socket.io with npm --save install socket.io
-4. install npm install --save morgan, for logging
+4. install npm install --save debug, for debug logging
 4. make app.js
 5. make index file
 
