@@ -2,8 +2,6 @@ var express = require('express');
 var http = require('http'); 
 var path = require('path');
 var serverSocket = require('socket.io');
-//debug
-var debug = require('debug');
 
 var app = express();
 
@@ -13,8 +11,6 @@ app.set('port', port);
 
 //use static plain HTML file
 app.use(express.static(path.join(__dirname, 'public')));
-
-//configure logger for development
 
 //setup express server
 var server = http.createServer(app).listen(app.get('port'), function() {
